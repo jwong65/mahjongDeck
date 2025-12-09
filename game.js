@@ -2,8 +2,8 @@ class Tiles{
     constructor(suit, value){
         this.suit = suit;
         this.value = value; 
-        this.frontTile = frontTilePath
-        this.backTile = backTilePath
+        this.frontTile = null
+        this.backTile = null
     }
     toString(){
         return `${this.suit} + ${this.value}`;
