@@ -1,7 +1,42 @@
 body {
-  margin: 0;
-  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center; 
+  padding: 20px;
+}
+
+main, header, section {
+  width: 100%;
+  max-width: 800px;
+  text-align: center; 
+  margin-bottom: 20px;
+}
+
+#controls {
+  display: flex;
+  justify-content: center; 
+  gap: 10px; 
+  margin-bottom: 20px;
+}
+
+.tile-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* center tiles */
+  gap: 8px;
+  min-height: 70px;
+}
+
+.tile {
+  width: 40px;
+  height: 60px;
+  background: white;
+  border: 2px solid #444;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  cursor: pointer;
+  user-select: none;
 }
