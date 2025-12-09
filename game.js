@@ -9,3 +9,37 @@ class Tiles{
         return `${this.suit} + ${this.value}`;
     }
 }
+
+function buildDeck(){
+    const deck =[];
+    const suits = ["man", "pin", "sou"];
+
+    // Numbered tiles 1-9, 4 of each
+    for(let suit of suits){
+        for (let value = 1; value <= 9; value++){  
+            for(let i=0; i<4; i++){
+                deck.push (new Tiles(suit, value));
+            }
+    }}
+    // Need honor tiles added
+    // Winds: East, South, West, North
+    const winds = ["east", "south", "west", "north"];
+    for (let wind of winds){
+        for (let i=0; i<4; i++){
+            deck.push (new Tiles("wind", wind));
+        }}
+        // Dragons: Red, Green, White
+        const dragons = ["red", "green", "white"]; 
+    
+    for (let dragon of dragons){
+        for (let i=0; i<4; i++){
+            deck.push (new Tiles("dragon", dragon));
+        }
+    }
+
+    return deck;
+    
+}
+
+const deck = buildDeck();
+console.log(deck);
