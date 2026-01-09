@@ -54,3 +54,13 @@ const deck = buildDeck();
 // console.log(deck);
 const shuffledDeck = shuffleDeck(deck);
 console.log("Deck shuffled:", shuffledDeck);
+
+// Hand functionality
+const drawButton = document.getElementById("draw-button");
+drawButton.addEventListener("click", drawHand);
+
+function drawHand(){
+    const handSize = 14;
+    const handContainer = document.getElementById("hand");
+    handContainer.innerHTML = ""; // Clear previous hand for testing
+}
