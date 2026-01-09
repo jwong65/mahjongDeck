@@ -59,8 +59,17 @@ console.log("Deck shuffled:", shuffledDeck);
 const drawButton = document.getElementById("draw-button");
 drawButton.addEventListener("click", drawHand);
 
+const resetButton = document.getElementById("reset-button");
+resetButton.addEventListener("click", resetDeck);
+
 function drawHand(){
     const handSize = 14;
     const handContainer = document.getElementById("hand");
     handContainer.innerHTML = ""; // Clear previous hand for testing
+}
+
+function resetDeck(){
+    deck = shuffleDeck(buildDeck());
+    document.getElementById("hand").innerHTML = "";
+    console.log("Deck reset and shuffled.");
 }
