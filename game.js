@@ -50,22 +50,28 @@ function shuffleDeck(deck){
 }
 
 // Testing purposes.
-const deck = buildDeck();
+let deck = buildDeck();
 // console.log(deck);
 const shuffledDeck = shuffleDeck(deck);
 console.log("Deck shuffled:", shuffledDeck);
 
 // Hand functionality
-const drawButton = document.getElementById("draw-button");
+const drawButton = document.getElementById("draw-hand");
 drawButton.addEventListener("click", drawHand);
 
-const resetButton = document.getElementById("reset-button");
+const resetButton = document.getElementById("reset");
 resetButton.addEventListener("click", resetDeck);
 
 function drawHand(){
     const handSize = 14;
     const handContainer = document.getElementById("hand");
     handContainer.innerHTML = ""; // Clear previous hand for testing
+
+    if (deck.length < handSize) {
+        console.log("Not enough tiles in the deck to draw a hand.");
+        return;
+    }
+    const hand = deck.splice(0, handSize);
 }
 
 function resetDeck(){
