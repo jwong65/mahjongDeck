@@ -72,6 +72,15 @@ function drawHand(){
         return;
     }
     const hand = deck.splice(0, handSize);
+
+   hand.forEach(tile => {
+        const div = document.createElement("div");
+        div.className = "tile";
+        div.textContent = `${tile.suit} ${tile.value}`;
+        handContainer.appendChild(div);
+    });
+    console.log("Hand drawn:", hand);
+    console.log("Tiles remaining in deck:", deck.length);
 }
 
 function resetDeck(){
