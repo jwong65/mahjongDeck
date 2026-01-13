@@ -71,12 +71,24 @@ function drawHand(){
     }
     const hand = deck.splice(0, handSize);
 
-   hand.forEach(tile => {
+//    hand.forEach(tile => {
+//         const div = document.createElement("div");
+//         div.className = "tile";
+//         div.textContent = `${tile.suit} ${tile.value}`;
+//         handContainer.appendChild(div);
+//     });
+    hand.forEach(tile => {
         const div = document.createElement("div");
         div.className = "tile";
-        div.textContent = `${tile.suit} ${tile.value}`;
+
+        const img = document.createElement("img");
+        img.src = getTileImage(tile);
+        img.alt = tile.toString();
+
+        div.appendChild(img);
         handContainer.appendChild(div);
-    });
+});
+
     console.log("Hand drawn:", hand);
     console.log("Tiles remaining in deck:", deck.length);
 }
@@ -91,7 +103,7 @@ function getTileImage(tile){
     if(tile.suit === "man" || tile.suit === "pin" || tile.suit === "sou"){
         const suitDirectory = tile.suit;
         const suitName = tile.suit.charAt(0).toUpperCase() + tile.suit.slice(1);
-        return `images/${suitDirectory}/${suitName}${tile.value}.svg`;
+        return `assets/Regular/${suitDirectory}/${suitName}${tile.value}.svg`;
     }
     if (tile.suit === "wind"){
         const map = {
@@ -100,7 +112,7 @@ function getTileImage(tile){
             west: "Shaa",
             north: "Pei"
         };
-        return `assets/regular/wind/${map[tile.value]}.svg`;
+        return `assets/Regular/wind/${map[tile.value]}.svg`;
     }
     if (tile.suit === "dragon") {
         const map = {
@@ -108,8 +120,8 @@ function getTileImage(tile){
             green: "Hatsu",
             white: "Haku"
         };
-        return `assets/regular/dragon/${map[tile.value]}.svg`;
+        return `assets/Regular/dragon/${map[tile.value]}.svg`;
     }
 // Default fallback image is the Blank tile.
-    return "assets/regular/Front.svg";
+    return "assets/Regular/Front.svg";
 }
