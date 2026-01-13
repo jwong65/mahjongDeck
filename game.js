@@ -1,9 +1,7 @@
-class Tiles{
+class Tile{
     constructor(suit, value){
         this.suit = suit;
         this.value = value; 
-        this.frontTile = null
-        this.backTile = null
     }
     toString(){
         return `${this.suit} + ${this.value}`;
@@ -26,14 +24,14 @@ function buildDeck(){
     const winds = ["east", "south", "west", "north"];
     for (let wind of winds){
         for (let i=0; i<4; i++){
-            deck.push (new Tiles("wind", wind));
+            deck.push (new Tile("wind", wind));
         }}
         // Dragons: Red, Green, White
         const dragons = ["red", "green", "white"]; 
     
     for (let dragon of dragons){
         for (let i=0; i<4; i++){
-            deck.push (new Tiles("dragon", dragon));
+            deck.push (new Tile("dragon", dragon));
         }
     }
 
