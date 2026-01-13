@@ -86,3 +86,30 @@ function resetDeck(){
     document.getElementById("hand").innerHTML = "";
     console.log("Deck reset and shuffled.");
 }
+
+function getTileImage(tile){
+    if(tile.suit === "man" || tile.suit === "pin" || tile.suit === "sou"){
+        const suitDirectory = tile.suit;
+        const suitName = tile.suit.charAt(0).toUpperCase() + tile.suit.slice(1);
+        return `images/${suitDirectory}/${suitName}${tile.value}.svg`;
+    }
+    if (tile.suit === "wind"){
+        const map = {
+            east: "Ton",
+            south: "Nan",
+            west: "Shaa",
+            north: "Pei"
+        };
+        return `assets/regular/wind/${map[tile.value]}.svg`;
+    }
+    if (tile.suit === "dragon") {
+        const map = {
+            red: "Chun",
+            green: "Hatsu",
+            white: "Haku"
+        };
+        return `assets/regular/dragon/${map[tile.value]}.svg`;
+    }
+// Default fallback image is the Blank tile.
+    return "assets/regular/Front.svg";
+}
