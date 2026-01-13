@@ -16,7 +16,7 @@ function buildDeck(){
     for(let suit of suits){
         for (let value = 1; value <= 9; value++){  
             for(let i=0; i<4; i++){
-                deck.push (new Tiles(suit, value));
+                deck.push (new Tile(suit, value));
             }
     }}
     // Need honor tiles added
