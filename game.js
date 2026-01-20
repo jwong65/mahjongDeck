@@ -112,7 +112,7 @@ function getTileImage(tile){
             west: "Shaa",
             north: "Pei"
         };
-        return `assets/Regular/wind/${map[tile.value]}.svg`;
+        return `assets/Regular/seats/${map[tile.value]}.svg`;
     }
     if (tile.suit === "dragon") {
         const map = {
