@@ -77,6 +77,8 @@ function drawHand(){
 //         div.textContent = `${tile.suit} ${tile.value}`;
 //         handContainer.appendChild(div);
 //     });
+    const tooltip = document.getElementById("tooltip");
+
     hand.forEach(tile => {
         const div = document.createElement("div");
         div.className = "tile";
@@ -84,6 +86,21 @@ function drawHand(){
         const img = document.createElement("img");
         img.src = getTileImage(tile);
         img.alt = tile.toString();
+
+        img.addEventListener("mouseover", () => {
+            tooltip.style.display = "block";
+            tooltip.textContent =  `${tile.suit.toUpperCase()} ${tile.value}`;
+            tooltip.style.opacity = "1";
+
+        })
+        img.addEventListener("mousemove", (e) => {
+            tooltip.style.left = e.clientX + 12 + "px";
+            tooltip.style.top = e.clientY + 12 + "px";
+        });
+        img.addEventListener("mouseleave", () => {
+            tooltip.style.opacity = "0";
+        });
+
 
         div.appendChild(img);
         handContainer.appendChild(div);
