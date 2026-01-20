@@ -1,10 +1,11 @@
 class Tile{
-    constructor(suit, value){
+    constructor(suit, value, isDora){
         this.suit = suit;
         this.value = value; 
+        this.isDora = isDora;
     }
     toString(){
-        return `${this.suit} + ${this.value}`;
+        return `${this.suit} + ${this.value}${this.isDora ? " (Dora)" : ""}`;
     }
 }
 
@@ -14,9 +15,17 @@ function buildDeck(){
 
     // Numbered tiles 1-9, 4 of each
     for(let suit of suits){
-        for (let value = 1; value <= 9; value++){  
+        for (let value = 1; value <= 9; value++){ 
+            if (value === 5){
+                deck.push (new Tile(suit, value, true));
+                for (let i=0; i<3; i++){
+                    deck.push (new Tile(suit, value, false));
+                }
+            }
+            else{
             for(let i=0; i<4; i++){
-                deck.push (new Tile(suit, value));
+                deck.push (new Tile(suit, value, false));
+            }
             }
     }}
     // Need honor tiles added
@@ -89,7 +98,7 @@ function drawHand(){
 
         img.addEventListener("mouseover", () => {
             tooltip.style.display = "block";
-            tooltip.textContent =  `${tile.suit.toUpperCase()} ${tile.value}`;
+            tooltip.textContent =  `${tile.suit.toUpperCase()} ${tile.value}${tile.isDora ? " (Dora)" : ""}`;
             tooltip.style.opacity = "1";
 
         })
@@ -120,6 +129,10 @@ function getTileImage(tile){
     if(tile.suit === "man" || tile.suit === "pin" || tile.suit === "sou"){
         const suitDirectory = tile.suit;
         const suitName = tile.suit.charAt(0).toUpperCase() + tile.suit.slice(1);
+
+        if (tile.value ===5 && tile.isDora){
+            return `assets/Regular/${suitDirectory}/${suitName}5-Dora.svg`;
+        }
         return `assets/Regular/${suitDirectory}/${suitName}${tile.value}.svg`;
     }
     if (tile.suit === "wind"){
