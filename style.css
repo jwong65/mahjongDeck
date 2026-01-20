@@ -46,3 +46,17 @@ main, header, section {
   height: 100%;
   object-fit: contain;
 }
+
+#tooltip {
+    position: fixed;
+    pointer-events: none;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+    z-index: 1000;
+    white-space: nowrap;
+}
