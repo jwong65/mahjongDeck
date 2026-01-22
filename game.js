@@ -1,3 +1,4 @@
+let currentHand = []
 class Tile{
     constructor(suit, value, isDora){
         this.suit = suit;
@@ -78,7 +79,9 @@ function drawHand(){
         console.log("Not enough tiles in the deck to draw a hand.");
         return;
     }
-    const hand = deck.splice(0, handSize);
+    // const hand = deck.splice(0, handSize);
+    currentHand = deck.splice(0, handSize);
+    renderHand()
 
 //    hand.forEach(tile => {
 //         const div = document.createElement("div");
@@ -86,36 +89,7 @@ function drawHand(){
 //         div.textContent = `${tile.suit} ${tile.value}`;
 //         handContainer.appendChild(div);
 //     });
-    const tooltip = document.getElementById("tooltip");
-
-    hand.forEach(tile => {
-        const div = document.createElement("div");
-        div.className = "tile";
-
-        const img = document.createElement("img");
-        img.src = getTileImage(tile);
-        img.alt = tile.toString();
-
-        img.addEventListener("mouseover", () => {
-            tooltip.style.display = "block";
-            tooltip.textContent =  `${tile.suit.toUpperCase()} ${tile.value}${tile.isDora ? " (Dora)" : ""}`;
-            tooltip.style.opacity = "1";
-
-        })
-        img.addEventListener("mousemove", (e) => {
-            tooltip.style.left = e.clientX + 12 + "px";
-            tooltip.style.top = e.clientY + 12 + "px";
-        });
-        img.addEventListener("mouseleave", () => {
-            tooltip.style.opacity = "0";
-        });
-
-
-        div.appendChild(img);
-        handContainer.appendChild(div);
-});
-
-    console.log("Hand drawn:", hand);
+    console.log("Hand drawn:", currentHand);
     console.log("Tiles remaining in deck:", deck.length);
 }
 
@@ -154,4 +128,60 @@ function getTileImage(tile){
     }
 // Default fallback image is the Blank tile.
     return "assets/Regular/Front.svg";
+}
+
+function tileDrag(tileDiv, index){
+    tileDiv.draggable = true;
+    tileDiv.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/plain", index);
+    });
+    tileDiv.addEventListener("dragover", (e) => {
+        e.preventDefault();
+    })
+    tileDiv.addEventListener("drop", (e) => {
+        e.preventDefault();
+        const draggedIndex = e.dataTransfer.getData("text/plain");
+        const targetIndex = index;
+        
+        [currentHand[draggedIndex], currentHand[targetIndex]] = [currentHand[targetIndex], currentHand[draggedIndex]];
+
+        // Re-render the hand after it's been adjusted
+        renderHand();
+    })
+}
+function renderHand() {
+    const handContainer = document.getElementById("hand");
+    const tooltip = document.getElementById("tooltip");
+
+    handContainer.innerHTML = "";
+
+    currentHand.forEach((tile, index) => {
+        const div = document.createElement("div");
+        div.className = "tile";
+
+        tileDrag(div, index);
+
+        const img = document.createElement("img");
+        img.src = getTileImage(tile);
+        img.alt = tile.toString();
+
+        img.addEventListener("mouseover", () => {
+            tooltip.style.display = "block";
+            tooltip.textContent =
+                `${tile.suit.toUpperCase()} ${tile.value}${tile.isDora ? " (Dora)" : ""}`;
+            tooltip.style.opacity = "1";
+        });
+
+        img.addEventListener("mousemove", (e) => {
+            tooltip.style.left = e.clientX + 12 + "px";
+            tooltip.style.top = e.clientY + 12 + "px";
+        });
+
+        img.addEventListener("mouseleave", () => {
+            tooltip.style.opacity = "0";
+        });
+
+        div.appendChild(img);
+        handContainer.appendChild(div);
+    });
 }
