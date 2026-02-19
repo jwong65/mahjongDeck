@@ -1,3 +1,22 @@
+const SUIT_ORDER = {
+    man: 1,
+    pin: 2,
+    sou: 3,
+    wind: 4,
+    dragon: 5
+};
+const WIND_ORDER = {
+    east: 1,
+    south: 2,
+    west: 3,
+    north: 4
+};
+
+const DRAGON_ORDER = {
+    red: 1,
+    green: 2,
+    white: 3
+};
 let currentHand = []
 class Tile{
     constructor(suit, value, isDora){
@@ -69,6 +88,10 @@ drawButton.addEventListener("click", drawHand);
 
 const resetButton = document.getElementById("reset");
 resetButton.addEventListener("click", resetDeck);
+
+const sortButton = document.getElementById("sort-hand");
+sortButton.addEventListener("click", sortHand);
+
 
 function drawHand(){
     const handSize = 14;
@@ -184,4 +207,22 @@ function renderHand() {
         div.appendChild(img);
         handContainer.appendChild(div);
     });
+}
+function sortHand() {
+    currentHand.sort((a, b) => {
+        const suitDiff = SUIT_ORDER[a.suit] - SUIT_ORDER[b.suit];
+        if (suitDiff !== 0) return suitDiff;
+
+        if (a.suit === "wind") {
+            return WIND_ORDER[a.value] - WIND_ORDER[b.value];
+        }
+
+        if (a.suit === "dragon") {
+            return DRAGON_ORDER[a.value] - DRAGON_ORDER[b.value];
+        }
+
+        return a.value - b.value;
+    });
+
+    renderHand();
 }
